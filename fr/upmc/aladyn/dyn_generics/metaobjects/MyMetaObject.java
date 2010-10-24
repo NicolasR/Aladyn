@@ -34,7 +34,7 @@ public class MyMetaObject extends Metaobject {
 	@Override
 	public Object trapMethodcall(int identifier, Object[] args) throws Throwable{
 		System.out.println("[trapMethodcall]FieldName: "+Thread.currentThread().getStackTrace()[3].getMethodName());
-		Generics2.checkTypesParams(getObject().getClass(), types);
+		Generics2.checkTypesParams(getObject().getClass(), types, args);
 		Generics2.checkTypeReturn(getObject().getClass(), types);
 		//Generics2.checkTypeReturn(this.getClass(), this.first.getClass(), types);
 		return super.trapMethodcall(identifier, args);

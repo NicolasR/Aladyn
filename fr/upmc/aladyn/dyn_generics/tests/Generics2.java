@@ -9,7 +9,7 @@ import fr.upmc.aladyn.dyn_generics.annotations.DynamicGenericTypeParameters;
 import fr.upmc.aladyn.dyn_generics.exceptions.LatentTypeCheckException;
 
 public class Generics2 {
-	public static void checkTypesParams(Class<?> classinfo, Class<?>[] types) throws LatentTypeCheckException
+	public static void checkTypesParams(Class<?> classinfo, Class<?>[] types, Object[] args) throws LatentTypeCheckException
 	{
 		try {
 				String methodName = Thread.currentThread().getStackTrace()[4].getMethodName();
@@ -25,11 +25,9 @@ public class Generics2 {
 				}
 				System.out.println("[checkTypesParams]methodfound: "+methlist[num].getName());
 				String[] typeParams = classinfo.getAnnotation(DynamicGenericTypeParameters.class).typeParams();
-				Class<?>[] params = methlist[num].getParameterTypes();
 					
 				Annotation[][] listannot = methlist[num].getParameterAnnotations();
 				
-				System.out.println("[checkTypesParams]paramslength: "+params.length);
 				if(listannot.length > 0)
 				{
 					for (int j=0; j < listannot.length; j++)
@@ -37,9 +35,9 @@ public class Generics2 {
 						for (int i = 0; i < typeParams.length; i++) {
 							if ( ((DynamicGenericType)listannot[j][0]).value().equals(typeParams[i]) )
 							{
-								if (!params[i].equals(types[i]))
+								if (!args[i].getClass().equals(types[i]))
 								{
-									throw new LatentTypeCheckException("["+methodName+"(parameter "+(i+1)+")]bad type "+params[i].getSimpleName()+", waiting "+types[i].getSimpleName());
+									throw new LatentTypeCheckException("["+methodName+"(parameter "+(i+1)+")]bad type "+args[i].getClass().getSimpleName()+", waiting "+types[i].getSimpleName());
 								}
 							}
 						}
