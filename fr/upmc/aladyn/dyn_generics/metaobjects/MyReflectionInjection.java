@@ -21,6 +21,7 @@ public class MyReflectionInjection extends Reflection {
 				if (  annot instanceof DynamicGenericTypeParameters )
 				{
 					MyInjection.inject(ctClass);
+					break;
 				}
 			}
 		} catch (ClassNotFoundException e) {
