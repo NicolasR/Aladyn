@@ -80,7 +80,7 @@ public class Generics {
 		}
 	}
 	
-	public static void checkTypeField(Class<?> classinfo, String name, Class<?>[] types)
+	public static void checkTypeField(Class<?> classinfo, String name, Class<?>[] types) throws LatentTypeCheckException
 	{
 		String[] typeParams = classinfo.getAnnotation(DynamicGenericTypeParameters.class).typeParams();
 		Field[] fields = classinfo.getFields();
