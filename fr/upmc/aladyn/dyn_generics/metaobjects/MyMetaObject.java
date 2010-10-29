@@ -35,9 +35,11 @@ public class MyMetaObject extends Metaobject {
 	public Object trapMethodcall(int identifier, Object[] args) throws Throwable{
 		System.out.println(this.getReturnType(identifier).getName());
 		System.out.println("[trapMethodcall]FieldName: "+Thread.currentThread().getStackTrace()[3].getMethodName());
-		Generics2.checkTypesParams(getObject().getClass(), types, args);
-		Generics2.checkTypeReturn(getObject().getClass(), types);
+		//Generics2.checkTypesParams(getObject().getClass(), types, args);
+		//Generics2.checkTypeReturn(getObject().getClass(), types);
 		//Generics2.checkTypeReturn(this.getClass(), this.first.getClass(), types);
-		return super.trapMethodcall(identifier, args);
+		Object o = super.trapMethodcall(identifier, args);
+		System.out.println("L'objet de nos reves : " + o.getClass());
+		return o;
 	}
 }
