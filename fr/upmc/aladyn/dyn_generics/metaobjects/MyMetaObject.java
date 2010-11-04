@@ -1,6 +1,5 @@
 package fr.upmc.aladyn.dyn_generics.metaobjects;
 
-import fr.upmc.aladyn.dyn_generics.tests.Generics2;
 import fr.upmc.aladyn.reflection.Metaobject;
 
 public class MyMetaObject extends Metaobject {

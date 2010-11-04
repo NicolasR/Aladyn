@@ -2,7 +2,6 @@ package fr.upmc.aladyn.dyn_generics.transform;
 
 import javassist.ClassPool;
 import javassist.Loader;
-import fr.upmc.aladyn.dyn_generics.metaobjects.MyReflectionInjection;
 public class Main {
 
 	public static void main(String[] args) throws Throwable {

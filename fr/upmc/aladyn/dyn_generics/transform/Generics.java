@@ -6,10 +6,10 @@ import java.lang.reflect.Method;
 
 import fr.upmc.aladyn.dyn_generics.annotations.DynamicGenericType;
 import fr.upmc.aladyn.dyn_generics.annotations.DynamicGenericTypeParameters;
-import fr.upmc.aladyn.dyn_generics.exceptions.LatentTypeCheckException;
+import fr.upmc.aladyn.dyn_generics.exceptions.LatentTypeCheckStaticException;
 
 public class Generics {
-	public static void checkTypesParams(Class<?> classinfo, Class<?>[] types, Object[] args) throws LatentTypeCheckException
+	public static void checkTypesParams(Class<?> classinfo, Class<?>[] types, Object[] args) throws LatentTypeCheckStaticException
 	{
 		try {
 				String methodName = Thread.currentThread().getStackTrace()[2].getMethodName();
@@ -37,19 +37,19 @@ public class Generics {
 							{
 								if (!args[i].getClass().equals(types[i]))
 								{
-									throw new LatentTypeCheckException("["+methodName+"(parameter "+(i+1)+")]bad type "+args[i].getClass().getSimpleName()+", waiting "+types[i].getSimpleName());
+									throw new LatentTypeCheckStaticException("["+methodName+"(parameter "+(i+1)+")]bad type "+args[i].getClass().getSimpleName()+", waiting "+types[i].getSimpleName());
 								}
 							}
 						}
 					}
 				}
-			} catch (LatentTypeCheckException e){
+			} catch (LatentTypeCheckStaticException e){
 				e.printStackTrace();
 				System.exit(0);
 			}
 	}
 	
-	public static void checkTypeReturn(Class<?> classinfo, Class<?>[] types) throws LatentTypeCheckException
+	public static void checkTypeReturn(Class<?> classinfo, Class<?>[] types) throws LatentTypeCheckStaticException
 	{
 		String methodName = Thread.currentThread().getStackTrace()[2].getMethodName();
 		System.out.println("[checkTypeReturn]methodName: "+methodName);
@@ -73,14 +73,14 @@ public class Generics {
 					if (!(returntype.equals(types[i])))
 					{
 						// TODO CA marche pas il ne faut pas comparer avec le type de retour
-						throw new LatentTypeCheckException("["+methodName+"]bad returntype "+returntype+", waiting "+types[i].getSimpleName());
+						throw new LatentTypeCheckStaticException("["+methodName+"]bad returntype "+returntype+", waiting "+types[i].getSimpleName());
 					}
 				}
 			}
 		}
 	}
 	
-	public static void checkTypeField(Class<?> classinfo, String name, Class<?>[] types) throws LatentTypeCheckException
+	public static void checkTypeField(Class<?> classinfo, String name, Class<?>[] types) throws LatentTypeCheckStaticException
 	{
 		String[] typeParams = classinfo.getAnnotation(DynamicGenericTypeParameters.class).typeParams();
 		Field[] fields = classinfo.getFields();
@@ -107,7 +107,7 @@ public class Generics {
 
 				if (!(fields[num].getType().equals(types[i])))
 				{
-					throw new LatentTypeCheckException("bad type for field "+fields[num].getName()+", waiting "+types[i].getSimpleName());
+					throw new LatentTypeCheckStaticException("bad type for field "+fields[num].getName()+", waiting "+types[i].getSimpleName());
 				}
 			}
 		}
