@@ -17,21 +17,22 @@ public class MyMetaObject extends Metaobject {
 
 	@Override
 	public Object trapFieldRead(String name){
+		Object fieldtype = super.trapFieldRead(name);
 		System.out.println("[trapFieldRead]FieldName: "+name);
-		Generics2.checkTypeField(getObject().getClass(), name, types);
-		return super.trapFieldRead(name);
+		Generics2.checkTypeField(getObject().getClass(), name, types, fieldtype.getClass());
+		return fieldtype;
 	}
 	
 	@Override
 	public void trapFieldWrite(String name, Object value){
-		
 		System.out.println("[trapFieldWrite]FieldName: "+name);
-		Generics2.checkTypeField(getObject().getClass(), name, types);
+		Generics2.checkTypeField(getObject().getClass(), name, types, value.getClass());
 		super.trapFieldWrite(name, value);
 	}
 	
 	@Override
 	public Object trapMethodcall(int identifier, Object[] args) throws Throwable{
+		System.out.println(this.getReturnType(identifier).getName());
 		System.out.println("[trapMethodcall]FieldName: "+Thread.currentThread().getStackTrace()[3].getMethodName());
 		//Generics2.checkTypesParams(getObject().getClass(), types, args);
 		//Generics2.checkTypeReturn(getObject().getClass(), types);

@@ -49,6 +49,7 @@ public class Generics2 {
 			}
 	}
 	
+	//$R
 	public static void checkTypeReturn(Class<?> classinfo, Class<?>[] types) throws LatentTypeCheckException
 	{
 		String methodName = Thread.currentThread().getStackTrace()[4].getMethodName();
@@ -65,12 +66,10 @@ public class Generics2 {
 		Class<?> returntype = methlist[num].getReturnType();
 		if (!methlist[num].getGenericReturnType().toString().equals("void"))
 		{
-			System.out.println("[checkTypeReturn]methodAnnot: "+methlist[num].getAnnotation(DynamicGenericType.class));
 			type = methlist[num].getAnnotation(DynamicGenericType.class).value();
 			for (int i = 0; i < typeParams.length; i++) {
 				if ( type.equals(typeParams[i]) )
 				{
-
 					if (!(returntype.equals(types[i])))
 					{
 						throw new LatentTypeCheckException("["+methodName+"]bad returntype "+returntype+", waiting "+types[i].getSimpleName());
@@ -80,16 +79,17 @@ public class Generics2 {
 		}
 	}
 	
-	public static void checkTypeField(Class<?> classinfo, String name, Class<?>[] types)
+	public static void checkTypeField(Class<?> classinfo, String name, Class<?>[] types, Class<?> typeField)
 	{
 		String[] typeParams = classinfo.getAnnotation(DynamicGenericTypeParameters.class).typeParams();
-		Field[] fields = classinfo.getFields();
-		
+		Field[] fields = classinfo.getDeclaredFields();
+
 		boolean found = false;
 		int num = 0;
 		System.out.println("[checkTypeField]FieldName: "+name);
 		for(num=0;num<fields.length;num++)
 		{
+			
 			if (fields[num].getName().equals(name))
 			{
 				found = true;
@@ -100,14 +100,19 @@ public class Generics2 {
 		if (!found)
 			return;
 		
-		String annotation = fields[num].getAnnotation(DynamicGenericType.class).value();
-		for (int i = 0; i < typeParams.length; i++) {
-			if ( annotation.equals(typeParams[i]) )
-			{
-
-				if (!(fields[num].getType().equals(types[i])))
-				{
-					throw new LatentTypeCheckException("bad type for field "+fields[num].getName()+", waiting "+types[i].getSimpleName());
+		System.out.println("[checkTypeField]FieldNameFound: "+fields[num].getName());
+		if (fields[num].getAnnotations().length > 0)
+		{
+			String annotation = fields[num].getAnnotation(DynamicGenericType.class).value();
+			for (int i = 0; i < typeParams.length; i++) {
+				if ( annotation.equals(typeParams[i]) )
+				{	
+					System.out.println(typeField.toString());
+					if (!(typeField.equals(types[i])))
+					{
+						throw new LatentTypeCheckException("bad type for field "+fields[num].getName()+
+								" ("+typeField.getSimpleName()+"), waiting "+types[i].getSimpleName());
+					}
 				}
 			}
 		}

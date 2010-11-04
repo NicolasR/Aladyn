@@ -11,8 +11,8 @@ import fr.upmc.aladyn.dyn_generics.metaobjects.MyMetaObject;
 @DynamicGenericTypeParameters(typeParams={"firstType", "secondType"})
 public class Pair 
 {	
-	@DynamicGenericType("firstType") public Object first;
-	@DynamicGenericType("secondType") public Object second;
+	@DynamicGenericType("firstType") private Object first;
+	@DynamicGenericType("secondType") private Object second;
 	
 	private Class<?>[] types;
 	
@@ -24,7 +24,7 @@ public class Pair
 	}
 
 	@DynamicGenericType("firstType")
-	public Object getFirst() 
+	public Object getFirst()
 	{		
 		/*String methodName = (new Exception()).getStackTrace()[0].getMethodName();
 		try {
@@ -56,7 +56,7 @@ public class Pair
 	}
 
 	@DynamicGenericType("secondType")
-	public Object getSecond() 
+	public Object getSecond()
 	{
 		/*String methodName = (new Exception()).getStackTrace()[0].getMethodName();
 		try {
