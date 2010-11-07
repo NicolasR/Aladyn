@@ -49,7 +49,7 @@ public class Generics {
 			}
 	}
 	
-	public static void checkTypeReturn(Class<?> classinfo, Class<?>[] types) throws LatentTypeCheckStaticException
+	public static void checkTypeReturn(Class<?> classinfo, Class<?> typeReturn, Class<?>[] types) throws LatentTypeCheckStaticException
 	{
 		String methodName = Thread.currentThread().getStackTrace()[2].getMethodName();
 		System.out.println("[checkTypeReturn]methodName: "+methodName);
@@ -61,8 +61,8 @@ public class Generics {
 	
 		System.out.println("[checkTypeReturn]methodNameFound: "+methlist[num].getName());
 		String type;
+		System.out.println("TEST: "+typeReturn.getSimpleName());
 		String[] typeParams = classinfo.getAnnotation(DynamicGenericTypeParameters.class).typeParams();
-		Class<?> returntype = methlist[num].getReturnType();
 		if (!methlist[num].getGenericReturnType().toString().equals("void"))
 		{
 			System.out.println("[checkTypeReturn]methodAnnot: "+methlist[num].getAnnotation(DynamicGenericType.class));
@@ -70,10 +70,10 @@ public class Generics {
 			for (int i = 0; i < typeParams.length; i++) {
 				if ( type.equals(typeParams[i]) )
 				{
-					if (!(returntype.equals(types[i])))
+					if (!(typeReturn.equals(types[i])))
 					{
 						// TODO CA marche pas il ne faut pas comparer avec le type de retour
-						throw new LatentTypeCheckStaticException("["+methodName+"]bad returntype "+returntype+", waiting "+types[i].getSimpleName());
+						throw new LatentTypeCheckStaticException("["+methodName+"]bad returntype "+typeReturn.getSimpleName()+", waiting "+types[i].getSimpleName());
 					}
 				}
 			}

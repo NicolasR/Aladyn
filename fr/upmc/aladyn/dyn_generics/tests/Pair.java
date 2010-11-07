@@ -1,21 +1,34 @@
 package fr.upmc.aladyn.dyn_generics.tests;
 
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Method;
-
 import fr.upmc.aladyn.dyn_generics.annotations.DynamicGenericType;
 import fr.upmc.aladyn.dyn_generics.annotations.DynamicGenericTypeParameters;
-import fr.upmc.aladyn.dyn_generics.exceptions.LatentTypeCheckException;
-import fr.upmc.aladyn.dyn_generics.metaobjects.MyMetaObject;
 
+/**
+ * Crée une pair d'élements
+ * 
+ * @author Charles DUFOUR
+ * @author Nicolas RIGNAULT
+ *
+ */
 @DynamicGenericTypeParameters(typeParams={"firstType", "secondType"})
 public class Pair 
 {	
 	@DynamicGenericType("firstType") private Object first;
 	@DynamicGenericType("secondType") private Object second;
 	
+	/**
+	 * Tableau correspondant aux types attendus
+	 */
+	@SuppressWarnings("unused")
 	private Class<?>[] types;
 	
+	/**
+	 * Crée la pair d'éléments
+	 * 
+	 * @param types les types des éléments
+	 * @param first le premier élément
+	 * @param second le second élément
+	 */
 	public Pair(Class<?>[] types, @DynamicGenericType("firstType") Object first, @DynamicGenericType("secondType") Object second)
 	{
 		this.types = types;
@@ -23,6 +36,11 @@ public class Pair
 		this.second = second;
 	}
 
+	/**
+	 * Renvoie le premier élément
+	 * 
+	 * @return le premier élément
+	 */
 	@DynamicGenericType("firstType")
 	public Object getFirst()
 	{		
@@ -55,6 +73,11 @@ public class Pair
 		return first;
 	}
 
+	/**
+	 * Recupère le second élément
+	 * 
+	 * @return le second élément
+	 */
 	@DynamicGenericType("secondType")
 	public Object getSecond()
 	{

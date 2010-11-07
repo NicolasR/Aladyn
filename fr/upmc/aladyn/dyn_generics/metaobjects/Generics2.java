@@ -74,7 +74,7 @@ public class Generics2 {
 	 * @param types le tableau de type contenant les paramètres attendus
 	 * @throws LatentTypeCheckException exception qui indique qu'il y a un problème de type
 	 */
-	public static void checkTypeReturn(Class<?> classinfo, Class<?>[] types) throws LatentTypeCheckException
+	public static void checkTypeReturn(Class<?> classinfo, Class<?> typeReturn, Class<?>[] types) throws LatentTypeCheckException
 	{
 		String methodName = Thread.currentThread().getStackTrace()[4].getMethodName();
 		System.out.println("[checkTypeReturn]methodName: "+methodName);
@@ -87,16 +87,15 @@ public class Generics2 {
 		System.out.println("[checkTypeReturn]methodNameFound: "+methlist[num].getName());
 		String type;
 		String[] typeParams = classinfo.getAnnotation(DynamicGenericTypeParameters.class).typeParams();
-		Class<?> returntype = methlist[num].getReturnType();
 		if (!methlist[num].getGenericReturnType().toString().equals("void"))
 		{
 			type = methlist[num].getAnnotation(DynamicGenericType.class).value();
 			for (int i = 0; i < typeParams.length; i++) {
 				if ( type.equals(typeParams[i]) )
 				{
-					if (!(returntype.equals(types[i])))
+					if (!(typeReturn.equals(types[i])))
 					{
-						throw new LatentTypeCheckException("["+methodName+"]bad returntype "+returntype+", waiting "+types[i].getSimpleName());
+						throw new LatentTypeCheckException("["+methodName+"]bad returntype "+typeReturn.getSimpleName()+", waiting "+types[i].getSimpleName());
 					}
 				}
 			}
