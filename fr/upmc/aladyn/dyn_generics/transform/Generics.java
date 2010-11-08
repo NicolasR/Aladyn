@@ -43,8 +43,8 @@ public class Generics {
 			}
 	}
 	
-	//$R
-	public static void checkTypeReturn(Class<?> classinfo, Class<?>[] types, Object ret) throws LatentTypeCheckException
+	
+	public static void checkTypeReturn(Class<?> classinfo, Class<?>[] types, Object typereturn) throws LatentTypeCheckException
 	{
 		String methodName = Thread.currentThread().getStackTrace()[2].getMethodName();
 		Method methlist[] = classinfo.getMethods();
@@ -55,16 +55,15 @@ public class Generics {
 		
 		String type;
 		String[] typeParams = classinfo.getAnnotation(DynamicGenericTypeParameters.class).typeParams();
-		//Class<?> returntype = methlist[num].getReturnType();
 		if (!methlist[num].getGenericReturnType().toString().equals("void"))
 		{
 			type = methlist[num].getAnnotation(DynamicGenericType.class).value();
 			for (int i = 0; i < typeParams.length; i++) {
 				if ( type.equals(typeParams[i]) )
 				{
-					if (!(ret.getClass().equals(types[i])))
+					if (!(typereturn.getClass().equals(types[i])))
 					{
-						throw new LatentTypeCheckException("["+methodName+"]bad returntype "+ret.getClass()+", waiting "+types[i].getSimpleName());
+						throw new LatentTypeCheckException("["+methodName+"]bad returntype "+typereturn.getClass()+", waiting "+types[i].getSimpleName());
 					}
 				}
 			}

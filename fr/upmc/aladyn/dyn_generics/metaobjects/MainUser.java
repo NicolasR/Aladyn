@@ -2,10 +2,17 @@ package fr.upmc.aladyn.dyn_generics.metaobjects;
 
 import fr.upmc.aladyn.dyn_generics.tests.Pair;
 
+/**
+ * Instancie la classe Pair
+ * 
+ * @author Charles DUFOUR
+ * @author Nicolas RIGNAULT
+ */
 public class MainUser {
 
 	/**
-	 * @param args
+	 * Main qui instancie la classe pair
+	 * @param args arguments passés en paramètre
 	 */
 	public static void main(String[] args)
 	{

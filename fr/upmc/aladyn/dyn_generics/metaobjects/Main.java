@@ -2,8 +2,22 @@ package fr.upmc.aladyn.dyn_generics.metaobjects;
 
 import javassist.ClassPool;
 import javassist.Loader;
+
+/**
+ * Exécute le MainUser et rend la classe associée refléxive
+ * 
+ * @author Charles DUFOUR
+ * @author Nicolas RIGNAULT
+ *
+ */
 public class Main {
 
+	/**
+	 * Exécute l'interception
+	 * 
+	 * @param args arguments passés en paramètre
+	 * @throws Throwable ??? Thread?
+	 */
 	public static void main(String[] args) throws Throwable {
 		
 		MyReflection r = new MyReflection();
