@@ -4,6 +4,8 @@ import javassist.CannotCompileException;
 import javassist.CtClass;
 import javassist.CtMethod;
 import javassist.NotFoundException;
+import javassist.expr.ExprEditor;
+import javassist.expr.MethodCall;
 import fr.upmc.aladyn.dyn_generics.annotations.DynamicGenericType;
 
 public class MyInjection {
@@ -15,8 +17,20 @@ public class MyInjection {
 			for (int i = 0; i < m.getAnnotations().length; i++) 
 			{	
 				if ( m.getAnnotations()[i] instanceof DynamicGenericType )
-				{
-					m.insertBefore("fr.upmc.aladyn.dyn_generics.transform.Generics.checkTypeReturn(this.getClass(), this.types);");
+				{System.out.println("coucou");
+					m.instrument(
+						    new ExprEditor() {
+						        public void edit(MethodCall method)
+						                      throws CannotCompileException
+						        {
+						            if (method.getClassName().equals("Pair")
+						                          && method.getMethodName().equals("getFirst"))
+						            	method.replace("{ Object value = ($r)$proceed(); = 0; $_ = value; }");
+						        }
+						    });
+
+					
+					//m.insertBefore("fr.upmc.aladyn.dyn_generics.transform.Generics.checkTypeReturn(this.getClass(), $_,this.types);");
 				}
 			}
 				for (int i = 0; i < m.getParameterAnnotations().length; i++) 
