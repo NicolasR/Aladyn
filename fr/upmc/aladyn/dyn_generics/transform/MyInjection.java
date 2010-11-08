@@ -16,7 +16,7 @@ public class MyInjection {
 			{	
 				if ( m.getAnnotations()[i] instanceof DynamicGenericType )
 				{
-					m.insertBefore("fr.upmc.aladyn.dyn_generics.transform.Generics.checkTypeReturn(this.getClass(), this.types);");
+					m.insertAfter("fr.upmc.aladyn.dyn_generics.transform.Generics.checkTypeReturn(this.getClass(), this.types, $_);");
 				}
 			}
 				for (int i = 0; i < m.getParameterAnnotations().length; i++) 
@@ -26,9 +26,7 @@ public class MyInjection {
 					{
 						if (tmp[0] instanceof DynamicGenericType )
 						{
-							//TODO refaire la methode checktypesaparams pour l'injection, car le tableau de parametres est obsolete.
-							m.insertBefore("System.out.println(\"Injection !!!!\");");
-							//m.insertBefore("fr.upmc.aladyn.dyn_generics.transform.Generics.checkTypeParams(this.getClass(), this.types);");
+							m.insertBefore("fr.upmc.aladyn.dyn_generics.transform.Generics.checkTypesParams(this.getClass(), this.types, $args);");
 							break;
 						}
 					}
