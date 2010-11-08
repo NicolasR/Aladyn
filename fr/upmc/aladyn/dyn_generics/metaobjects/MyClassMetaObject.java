@@ -12,6 +12,11 @@ import fr.upmc.aladyn.reflection.ClassMetaobject;
 public class MyClassMetaObject extends ClassMetaobject {
 
 	/**
+	 * Id généré
+	 */
+	private static final long serialVersionUID = -3727521159911031690L;
+
+	/**
 	 * @param params
 	 */
 	public MyClassMetaObject(String[] params) {

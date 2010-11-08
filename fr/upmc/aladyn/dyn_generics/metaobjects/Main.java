@@ -4,6 +4,7 @@ import javassist.ClassPool;
 import javassist.Loader;
 
 /**
+ * Réflection par Interception
  * Exécute le MainUser et rend la classe associée refléxive
  * 
  * @author Charles DUFOUR

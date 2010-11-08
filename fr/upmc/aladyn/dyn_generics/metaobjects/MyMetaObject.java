@@ -40,7 +40,7 @@ public class MyMetaObject extends Metaobject {
 	public Object trapFieldRead(String name){
 		Object fieldtype = super.trapFieldRead(name);
 		System.out.println("[trapFieldRead]FieldName: "+name);
-		Generics2.checkTypeField(getObject().getClass(), name, types, fieldtype.getClass());
+		Generics.checkTypeField(getObject().getClass(), name, types, fieldtype.getClass());
 		return fieldtype;
 	}
 	
@@ -53,7 +53,7 @@ public class MyMetaObject extends Metaobject {
 	@Override
 	public void trapFieldWrite(String name, Object value){
 		System.out.println("[trapFieldWrite]FieldName: "+name);
-		Generics2.checkTypeField(getObject().getClass(), name, types, value.getClass());
+		Generics.checkTypeField(getObject().getClass(), name, types, value.getClass());
 		super.trapFieldWrite(name, value);
 	}
 	
@@ -68,7 +68,7 @@ public class MyMetaObject extends Metaobject {
 	public Object trapMethodcall(int identifier, Object[] args) throws Throwable{
 		System.out.println("[trapMethodcall]FieldName: "+Thread.currentThread().getStackTrace()[3].getMethodName());
 		Object o = super.trapMethodcall(identifier, args);
-		Generics2.checkTypeReturn(getObject().getClass(), o.getClass(),types);
+		Generics.checkTypeReturn(getObject().getClass(), types,o.getClass());
 		System.out.println("L'objet de nos reves : " + o.getClass());
 		return o;
 	}

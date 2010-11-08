@@ -1,29 +1,39 @@
 package fr.upmc.aladyn.dyn_generics.transform;
 
 import java.lang.annotation.Annotation;
-import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 import fr.upmc.aladyn.dyn_generics.annotations.DynamicGenericType;
 import fr.upmc.aladyn.dyn_generics.annotations.DynamicGenericTypeParameters;
-import fr.upmc.aladyn.dyn_generics.exceptions.LatentTypeCheckStaticException;
+import fr.upmc.aladyn.dyn_generics.exceptions.LatentTypeCheckException;
 
+/**
+ * Classe qui vérifie les paramètres et les retours
+ * 
+ * @author Charles DUFOUR
+ * @author Nicolas RIGNAULT
+ *
+ */
 public class Generics {
-	public static void checkTypesParams(Class<?> classinfo, Class<?>[] types, Object[] args) throws LatentTypeCheckStaticException
+	
+	/**
+	 * Vérifie le type des paramètre d'une méthode
+	 * 
+	 * @param classinfo la classe dont on souhaite vérifier les paramètres
+	 * @param types le tableau de type contenant les paramètres attendus
+	 * @param args les paramètres de la fonctions
+	 * @throws LatentTypeCheckException exception qui indique qu'il y a un problème de type
+	 */
+	public static void checkTypesParams(Class<?> classinfo, Class<?>[] types, Object[] args) throws LatentTypeCheckException
 	{
 		try {
 				String methodName = Thread.currentThread().getStackTrace()[2].getMethodName();
-				System.out.println("[checkTypesParams]methodName: "+methodName);
 				Method methlist[] = classinfo.getMethods();
-				int num = 0, num2 = 0;
-				while ((!methlist[num].getName().contains(methodName)) || methodName.equals(methlist[num].getName())){
+				int num = 0;
+				while (!methlist[num].getName().contains(methodName) || !methodName.equals(methlist[num].getName())){
 					num++;
 				}
-
-				while ((methodName.equals(methlist[num].getName()))){
-					num2++;
-				}
-				System.out.println("[checkTypesParams]methodfound: "+methlist[num].getName());
+				
 				String[] typeParams = classinfo.getAnnotation(DynamicGenericTypeParameters.class).typeParams();
 					
 				Annotation[][] listannot = methlist[num].getParameterAnnotations();
@@ -37,82 +47,49 @@ public class Generics {
 							{
 								if (!args[i].getClass().equals(types[i]))
 								{
-									throw new LatentTypeCheckStaticException("["+methodName+"(parameter "+(i+1)+")]bad type "+args[i].getClass().getSimpleName()+", waiting "+types[i].getSimpleName());
+									throw new LatentTypeCheckException("["+methodName+"(parameter "+(i+1)+")]bad type "+args[i].getClass().getSimpleName()+", waiting "+types[i].getSimpleName());
 								}
 							}
 						}
 					}
 				}
-			} catch (LatentTypeCheckStaticException e){
+			} catch (LatentTypeCheckException e){
 				e.printStackTrace();
 				System.exit(0);
 			}
 	}
 	
-	public static void checkTypeReturn(Class<?> classinfo, Class<?> typeReturn, Class<?>[] types) throws LatentTypeCheckStaticException
+	/**
+	 * Vérifie le type de retour d'une méthode
+	 * 
+	 * @param classinfo la classe dont on souhaite vérifier les paramètres
+	 * @param types le tableau de type contenant les paramètres attendus
+	 * @param typereturn la classe correspondant au type de retour de la fonction
+	 * @throws LatentTypeCheckException exception qui indique qu'il y a un problème de type
+	 */
+	public static void checkTypeReturn(Class<?> classinfo, Class<?>[] types, Object typereturn) throws LatentTypeCheckException
 	{
 		String methodName = Thread.currentThread().getStackTrace()[2].getMethodName();
-		System.out.println("[checkTypeReturn]methodName: "+methodName);
 		Method methlist[] = classinfo.getMethods();
 		int num = 0;
-		while ( !methodName.equals(methlist[num].getName()) ){
+		while (!methlist[num].getName().contains(methodName) || !methodName.equals(methlist[num].getName())){
 			num++;
 		}
-	
-		System.out.println("[checkTypeReturn]methodNameFound: "+methlist[num].getName());
+		
 		String type;
-		System.out.println("TEST: "+typeReturn.getSimpleName());
 		String[] typeParams = classinfo.getAnnotation(DynamicGenericTypeParameters.class).typeParams();
 		if (!methlist[num].getGenericReturnType().toString().equals("void"))
 		{
-			System.out.println("[checkTypeReturn]methodAnnot: "+methlist[num].getAnnotation(DynamicGenericType.class));
 			type = methlist[num].getAnnotation(DynamicGenericType.class).value();
 			for (int i = 0; i < typeParams.length; i++) {
 				if ( type.equals(typeParams[i]) )
 				{
-					if (!(typeReturn.equals(types[i])))
+					if (!(typereturn.getClass().equals(types[i])))
 					{
-						// TODO CA marche pas il ne faut pas comparer avec le type de retour
-						throw new LatentTypeCheckStaticException("["+methodName+"]bad returntype "+typeReturn.getSimpleName()+", waiting "+types[i].getSimpleName());
+						throw new LatentTypeCheckException("["+methodName+"]bad returntype "+typereturn.getClass()+", waiting "+types[i].getSimpleName());
 					}
 				}
 			}
 		}
 	}
-	
-	public static void checkTypeField(Class<?> classinfo, String name, Class<?>[] types) throws LatentTypeCheckStaticException
-	{
-		String[] typeParams = classinfo.getAnnotation(DynamicGenericTypeParameters.class).typeParams();
-		Field[] fields = classinfo.getFields();
-		
-		boolean found = false;
-		int num = 0;
-		System.out.println("[checkTypeField]FieldName: "+name);
-		for(num=0;num<fields.length;num++)
-		{
-			if (fields[num].getName().equals(name))
-			{
-				found = true;
-				break;
-			}
-		}
-		
-		if (!found)
-			return;
-		
-		String annotation = fields[num].getAnnotation(DynamicGenericType.class).value();
-		for (int i = 0; i < typeParams.length; i++) {
-			if ( annotation.equals(typeParams[i]) )
-			{
-
-				if (!(fields[num].getType().equals(types[i])))
-				{
-					throw new LatentTypeCheckStaticException("bad type for field "+fields[num].getName()+", waiting "+types[i].getSimpleName());
-				}
-			}
-		}
-		
-	
-	}
 }
-

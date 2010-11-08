@@ -7,7 +7,19 @@ import javassist.NotFoundException;
 import fr.upmc.aladyn.dyn_generics.annotations.DynamicGenericTypeParameters;
 import fr.upmc.aladyn.reflection.Reflection;
 
+/**
+ * Effectue les injections si nécéssaires
+ * @author Charles DUFOUR
+ * @author Nicolas RIGNAULT
+ *
+ */
 public class MyReflectionInjection extends Reflection {
+	/**
+	 * Injecte du code si la classe contient une annotation de type
+	 * @param pool ???
+	 * @param classname le nom de la classe
+	 * @see fr.upmc.aladyn.reflection.Reflection#onLoad(javassist.ClassPool, java.lang.String)
+	 */
 	@Override
 	public void onLoad(ClassPool pool, String classname)
 			throws NotFoundException, CannotCompileException {
