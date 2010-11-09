@@ -13,9 +13,9 @@ public class TestInterceptionMethod1 {
 		Pair p = new Pair(new Class<?>[]{Integer.class, Integer.class}, 10, 20);
 		
 		try {
-			p.update(30, 40);
+			p.update(10, 40);
 			assertTrue(true);
-		} catch (Throwable e) 
+		} catch (RuntimeException e) 
 		{
 			assertTrue(false);
 		}
@@ -25,8 +25,9 @@ public class TestInterceptionMethod1 {
 			assertTrue(false);
 			
 		}
-		catch (Throwable e) 
+		catch (RuntimeException e) 
 		{
+			System.out.println("AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH");
 			assertTrue(true);
 		}
 	}
