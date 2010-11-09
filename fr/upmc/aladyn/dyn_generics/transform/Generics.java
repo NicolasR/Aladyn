@@ -5,7 +5,7 @@ import java.lang.reflect.Method;
 
 import fr.upmc.aladyn.dyn_generics.annotations.DynamicGenericType;
 import fr.upmc.aladyn.dyn_generics.annotations.DynamicGenericTypeParameters;
-import fr.upmc.aladyn.dyn_generics.exceptions.LatentTypeCheckException;
+import fr.upmc.aladyn.dyn_generics.exceptions.LatentTypeCheckStaticException;
 
 /**
  * Classe qui vérifie les paramètres et les retours
@@ -22,9 +22,9 @@ public class Generics {
 	 * @param classinfo la classe dont on souhaite vérifier les paramètres
 	 * @param types le tableau de type contenant les paramètres attendus
 	 * @param args les paramètres de la fonctions
-	 * @throws LatentTypeCheckException exception qui indique qu'il y a un problème de type
+	 * @throws LatentTypeCheckStaticException exception qui indique qu'il y a un problème de type
 	 */
-	public static void checkTypesParams(Class<?> classinfo, Class<?>[] types, Object[] args) throws LatentTypeCheckException
+	public static void checkTypesParams(Class<?> classinfo, Class<?>[] types, Object[] args) throws LatentTypeCheckStaticException
 	{
 		try {
 				String methodName = Thread.currentThread().getStackTrace()[2].getMethodName();
@@ -47,13 +47,13 @@ public class Generics {
 							{
 								if (!args[i].getClass().equals(types[i]))
 								{
-									throw new LatentTypeCheckException("["+methodName+"(parameter "+(i+1)+")]bad type "+args[i].getClass().getSimpleName()+", waiting "+types[i].getSimpleName());
+									throw new LatentTypeCheckStaticException("["+methodName+"(parameter "+(i+1)+")]bad type "+args[i].getClass().getSimpleName()+", waiting "+types[i].getSimpleName());
 								}
 							}
 						}
 					}
 				}
-			} catch (LatentTypeCheckException e){
+			} catch (LatentTypeCheckStaticException e){
 				e.printStackTrace();
 				System.exit(0);
 			}
@@ -65,9 +65,9 @@ public class Generics {
 	 * @param classinfo la classe dont on souhaite vérifier les paramètres
 	 * @param types le tableau de type contenant les paramètres attendus
 	 * @param typereturn la classe correspondant au type de retour de la fonction
-	 * @throws LatentTypeCheckException exception qui indique qu'il y a un problème de type
+	 * @throws LatentTypeCheckStaticException exception qui indique qu'il y a un problème de type
 	 */
-	public static void checkTypeReturn(Class<?> classinfo, Class<?>[] types, Object typereturn) throws LatentTypeCheckException
+	public static void checkTypeReturn(Class<?> classinfo, Class<?>[] types, Object typereturn) throws LatentTypeCheckStaticException
 	{
 		String methodName = Thread.currentThread().getStackTrace()[2].getMethodName();
 		Method methlist[] = classinfo.getMethods();
@@ -86,7 +86,7 @@ public class Generics {
 				{
 					if (!(typereturn.getClass().equals(types[i])))
 					{
-						throw new LatentTypeCheckException("["+methodName+"]bad returntype "+typereturn.getClass()+", waiting "+types[i].getSimpleName());
+						throw new LatentTypeCheckStaticException("["+methodName+"]bad returntype "+typereturn.getClass()+", waiting "+types[i].getSimpleName());
 					}
 				}
 			}
