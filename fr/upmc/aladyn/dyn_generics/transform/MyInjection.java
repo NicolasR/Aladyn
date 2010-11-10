@@ -37,7 +37,7 @@ public class MyInjection {
 					Object[] tmp = m.getParameterAnnotations()[i];
 					for (int j = 0; j < tmp.length; j++) 
 					{
-						if (tmp[0] instanceof DynamicGenericType )
+						if (tmp[j] instanceof DynamicGenericType )
 						{
 							m.insertBefore("fr.upmc.aladyn.dyn_generics.transform.Generics.checkTypesParams(this.getClass(), this.types, $args);");
 							break;

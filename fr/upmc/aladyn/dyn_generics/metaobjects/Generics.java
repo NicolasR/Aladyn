@@ -10,7 +10,7 @@ import fr.upmc.aladyn.dyn_generics.exceptions.LatentTypeCheckException;
 
 
 /**
- * Classe qui vérifie les paramètres, les retour et les accès aux champs
+ * Classe qui vérifie les paramètres, les retours et les accès aux champs
  * 
  * @author Charles DUFOUR
  * @author Nicolas RIGNAULT
@@ -28,39 +28,34 @@ public class Generics {
 	 */
 	public static void checkTypesParams(Class<?> classinfo, Class<?>[] types, Object[] args) throws LatentTypeCheckException
 	{
-		try {
-				String methodName = Thread.currentThread().getStackTrace()[4].getMethodName();
-				System.out.println("[checkTypesParams]methodName: "+methodName);
-				Method methlist[] = classinfo.getMethods();
-				int num = 0;
-				while ((!methlist[num].getName().contains(methodName)) || methodName.equals(methlist[num].getName())){
-					num++;
-				}
+		String methodName = Thread.currentThread().getStackTrace()[4].getMethodName();
+		System.out.println("[checkTypesParams]methodName: "+methodName);
+		Method methlist[] = classinfo.getMethods();
+		int num = 0;
+		while ((!methlist[num].getName().contains(methodName)) || methodName.equals(methlist[num].getName())){
+			num++;
+		}
 
-				System.out.println("[checkTypesParams]methodfound: "+methlist[num].getName());
-				String[] typeParams = classinfo.getAnnotation(DynamicGenericTypeParameters.class).typeParams();
-					
-				Annotation[][] listannot = methlist[num].getParameterAnnotations();
-				
-				if(listannot.length > 0)
-				{
-					for (int j=0; j < listannot.length; j++)
+		System.out.println("[checkTypesParams]methodfound: "+methlist[num].getName());
+		String[] typeParams = classinfo.getAnnotation(DynamicGenericTypeParameters.class).typeParams();
+			
+		Annotation[][] listannot = methlist[num].getParameterAnnotations();
+		
+		if(listannot.length > 0)
+		{
+			for (int j=0; j < listannot.length; j++)
+			{
+				for (int i = 0; i < typeParams.length; i++) {
+					if ( ((DynamicGenericType)listannot[j][0]).value().equals(typeParams[i]) )
 					{
-						for (int i = 0; i < typeParams.length; i++) {
-							if ( ((DynamicGenericType)listannot[j][0]).value().equals(typeParams[i]) )
-							{
-								if (!args[i].getClass().equals(types[i]))
-								{
-									throw new LatentTypeCheckException("["+methodName+"(parameter "+(i+1)+")]bad type "+args[i].getClass().getSimpleName()+", waiting "+types[i].getSimpleName());
-								}
-							}
+						if (!args[i].getClass().equals(types[i]))
+						{
+							throw new LatentTypeCheckException("["+methodName+"(parameter "+(i+1)+")]bad type "+args[i].getClass().getSimpleName()+", waiting "+types[i].getSimpleName());
 						}
 					}
 				}
-			} catch (LatentTypeCheckException e){
-				e.printStackTrace();
-				System.exit(0);
 			}
+		}
 	}
 	
 	
@@ -108,7 +103,7 @@ public class Generics {
 	 * @param types le tableau de type contenant les paramètres attendus
 	 * @param typeField la classe qui correspond au type du champ
 	 */
-	public static void checkTypeField(Class<?> classinfo, String name, Class<?>[] types, Class<?> typeField)
+	public static void checkTypeField(Class<?> classinfo, String name, Class<?>[] types, Class<?> typeField) throws LatentTypeCheckException
 	{
 		String[] typeParams = classinfo.getAnnotation(DynamicGenericTypeParameters.class).typeParams();
 		Field[] fields = classinfo.getDeclaredFields();
@@ -145,7 +140,5 @@ public class Generics {
 				}
 			}
 		}
-		
-	
 	}
 }

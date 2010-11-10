@@ -26,37 +26,32 @@ public class Generics {
 	 */
 	public static void checkTypesParams(Class<?> classinfo, Class<?>[] types, Object[] args) throws LatentTypeCheckStaticException
 	{
-		try {
-				String methodName = Thread.currentThread().getStackTrace()[2].getMethodName();
-				Method methlist[] = classinfo.getMethods();
-				int num = 0;
-				while (!methlist[num].getName().contains(methodName) || !methodName.equals(methlist[num].getName())){
-					num++;
-				}
-				
-				String[] typeParams = classinfo.getAnnotation(DynamicGenericTypeParameters.class).typeParams();
-					
-				Annotation[][] listannot = methlist[num].getParameterAnnotations();
-				
-				if(listannot.length > 0)
-				{
-					for (int j=0; j < listannot.length; j++)
+		String methodName = Thread.currentThread().getStackTrace()[2].getMethodName();
+		Method methlist[] = classinfo.getMethods();
+		int num = 0;
+		while (!methlist[num].getName().contains(methodName) || !methodName.equals(methlist[num].getName())){
+			num++;
+		}
+		
+		String[] typeParams = classinfo.getAnnotation(DynamicGenericTypeParameters.class).typeParams();
+			
+		Annotation[][] listannot = methlist[num].getParameterAnnotations();
+		
+		if(listannot.length > 0)
+		{
+			for (int j=0; j < listannot.length; j++)
+			{
+				for (int i = 0; i < typeParams.length; i++) {
+					if ( ((DynamicGenericType)listannot[j][0]).value().equals(typeParams[i]) )
 					{
-						for (int i = 0; i < typeParams.length; i++) {
-							if ( ((DynamicGenericType)listannot[j][0]).value().equals(typeParams[i]) )
-							{
-								if (!args[i].getClass().equals(types[i]))
-								{
-									throw new LatentTypeCheckStaticException("["+methodName+"(parameter "+(i+1)+")]bad type "+args[i].getClass().getSimpleName()+", waiting "+types[i].getSimpleName());
-								}
-							}
+						if (!args[i].getClass().equals(types[i]))
+						{
+							throw new LatentTypeCheckStaticException("["+methodName+"(parameter "+(i+1)+")]bad type "+args[i].getClass().getSimpleName()+", waiting "+types[i].getSimpleName());
 						}
 					}
 				}
-			} catch (LatentTypeCheckStaticException e){
-				e.printStackTrace();
-				System.exit(0);
 			}
+		}
 	}
 	
 	/**

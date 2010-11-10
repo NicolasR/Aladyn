@@ -9,7 +9,7 @@ package fr.upmc.aladyn.dyn_generics.exceptions;
  */
 public class LatentTypeCheckException extends RuntimeException 
 {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -6648684198579285412L;
 
 	/**
 	 * Appel le constructeur de RuntimeException, affiche un message
