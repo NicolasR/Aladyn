@@ -26,7 +26,6 @@ public class TestInjectionMethod1 {
 		}
 		catch (Throwable e) 
 		{
-			System.out.println("AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH");
 			assertTrue(true);
 		}
 	}
