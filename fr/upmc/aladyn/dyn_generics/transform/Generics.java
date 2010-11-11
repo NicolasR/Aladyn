@@ -24,10 +24,12 @@ public class Generics {
 	 * @param args les paramètres de la fonctions
 	 * @throws LatentTypeCheckStaticException exception qui indique qu'il y a un problème de type
 	 */
-	public static void checkTypesParams(Class<?> classinfo, Class<?>[] types, Object[] args) throws LatentTypeCheckStaticException
+	public static void checkTypesParams(Class<?> classinfo, Class<?>[] types, String methodName, Object[] args) throws LatentTypeCheckStaticException
 	{
 		try {
-				String methodName = Thread.currentThread().getStackTrace()[2].getMethodName();
+				/** Obsolete :)
+				 * String methodName = Thread.currentThread().getStackTrace()[2].getMethodName();
+				 */
 				Method methlist[] = classinfo.getMethods();
 				int num = 0;
 				while (!methlist[num].getName().contains(methodName) || !methodName.equals(methlist[num].getName())){
@@ -67,9 +69,11 @@ public class Generics {
 	 * @param typereturn la classe correspondant au type de retour de la fonction
 	 * @throws LatentTypeCheckStaticException exception qui indique qu'il y a un problème de type
 	 */
-	public static void checkTypeReturn(Class<?> classinfo, Class<?>[] types, Object typereturn) throws LatentTypeCheckStaticException
+	public static void checkTypeReturn(Class<?> classinfo, Class<?>[] types, String methodName, Object typereturn) throws LatentTypeCheckStaticException
 	{
-		String methodName = Thread.currentThread().getStackTrace()[2].getMethodName();
+		/** Obsolete :)
+		 * String methodName = Thread.currentThread().getStackTrace()[2].getMethodName();
+		 */
 		Method methlist[] = classinfo.getMethods();
 		int num = 0;
 		while (!methlist[num].getName().contains(methodName) || !methodName.equals(methlist[num].getName())){

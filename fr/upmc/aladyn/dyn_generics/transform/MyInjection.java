@@ -29,7 +29,8 @@ public class MyInjection {
 				if ( m.getAnnotations()[i] instanceof DynamicGenericType )
 
 				{
-					m.insertAfter("fr.upmc.aladyn.dyn_generics.transform.Generics.checkTypeReturn(this.getClass(), this.types, $_);");
+					String methodName = "\""+m.getName()+"\"";
+					m.insertAfter("fr.upmc.aladyn.dyn_generics.transform.Generics.checkTypeReturn(this.getClass(), this.types,"+methodName+" ,$_);");
 				}
 			}
 				for (int i = 0; i < m.getParameterAnnotations().length; i++) 
@@ -39,7 +40,8 @@ public class MyInjection {
 					{
 						if (tmp[0] instanceof DynamicGenericType )
 						{
-							m.insertBefore("fr.upmc.aladyn.dyn_generics.transform.Generics.checkTypesParams(this.getClass(), this.types, $args);");
+							String methodName = "\""+m.getName()+"\"";
+							m.insertBefore("fr.upmc.aladyn.dyn_generics.transform.Generics.checkTypesParams(this.getClass(), this.types, "+methodName+", $args);");
 							break;
 						}
 					}

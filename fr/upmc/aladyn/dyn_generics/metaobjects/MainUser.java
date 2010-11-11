@@ -17,8 +17,9 @@ public class MainUser {
 	public static void main(String[] args)
 	{
 		Pair p = new Pair(new Class<?>[]{Integer.class, Integer.class}, 10, 20);		
-		p.getFirst();
-		p.update("t", 1);
+		//p.getFirst();
+		//p.getSecond();
+		p.update("test", 1);
 	}
 
 }
