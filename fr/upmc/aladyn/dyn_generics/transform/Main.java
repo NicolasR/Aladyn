@@ -16,7 +16,7 @@ public class Main {
 	 * Exécute l'injection
 	 * 
 	 * @param args arguments passés en paramètre
-	 * @throws Throwable ??? Thread?
+	 * @throws Throwable une exception
 	 */
 	public static void main(String[] args) throws Throwable {
 		

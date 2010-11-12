@@ -58,6 +58,11 @@ public class Pair
 		return second;	
 	}
 
+	/**
+	 * Remplace les éléments de la pair par ceux donnés en paramètres
+	 * @param first le premier élément de la pair
+	 * @param second le second élément de la pair
+	 */
 	public void update(@DynamicGenericType("firstType") Object first, @DynamicGenericType("secondType") Object second) 
 	{
 		this.first = first;

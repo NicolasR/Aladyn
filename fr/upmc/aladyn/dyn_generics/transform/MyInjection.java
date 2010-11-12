@@ -7,9 +7,11 @@ import javassist.NotFoundException;
 import fr.upmc.aladyn.dyn_generics.annotations.DynamicGenericType;
 
 /**
+ * Effectue les injections nécessaires pour effectuer les vérifications
+ * 
  * @author Charles DUFOUR
  * @author Nicolas RIGNAULT
- * Effectue les injections nécessaires pour effectuer les vérifications
+ * 
  */
 public class MyInjection {
 	

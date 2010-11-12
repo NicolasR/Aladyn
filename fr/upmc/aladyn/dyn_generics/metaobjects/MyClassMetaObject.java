@@ -17,7 +17,7 @@ public class MyClassMetaObject extends ClassMetaobject {
 	private static final long serialVersionUID = -3727521159911031690L;
 
 	/**
-	 * @param params
+	 * @param params params[0] est le nom de la classe des objects reflexifs.
 	 */
 	public MyClassMetaObject(String[] params) {
 		super(params);
