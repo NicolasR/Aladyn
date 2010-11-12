@@ -9,8 +9,7 @@ import org.junit.runners.Suite.SuiteClasses;
 
 import fr.upmc.aladyn.dyn_generics.metaobjects.MyReflection;
 
-//@RunWith(Suite.class)
-@SuiteClasses(value={TestInterceptionGetter1.class, TestInterceptionMethod1.class})
+@SuiteClasses(value={TestGetter1.class, TestMethod1.class, TestScenario1.class, TestScenario2.class})
 public class TestSuiteInterception {
 	
 	MyReflection r;

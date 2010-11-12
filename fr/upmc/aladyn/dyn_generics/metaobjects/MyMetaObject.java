@@ -64,9 +64,9 @@ public class MyMetaObject extends Metaobject {
 	 */
 	@Override
 	public Object trapMethodcall(int identifier, Object[] args) throws Throwable{
-		Object o = super.trapMethodcall(identifier, args);
 		String methodName = "_m_"+identifier+"_"+getMethodName(identifier);
-		System.out.println("NAME: "+methodName);
+		Generics.checkTypesParams(getObject().getClass(), types, methodName, args);
+		Object o = super.trapMethodcall(identifier, args);
 		if (o != null)
 		{
 			Generics.checkTypeReturn(getObject().getClass(), types, methodName, o.getClass());

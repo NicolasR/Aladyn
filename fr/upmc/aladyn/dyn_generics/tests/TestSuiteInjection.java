@@ -9,8 +9,9 @@ import org.junit.runners.Suite.SuiteClasses;
 
 import fr.upmc.aladyn.dyn_generics.transform.MyReflectionInjection;
 
-@SuiteClasses(value={TestInjectionMethod1.class})
+@SuiteClasses(value={TestMethod1.class, TestGetter1.class, TestScenario1.class, TestScenario2.class})
 public class TestSuiteInjection {
+	
 	MyReflectionInjection r;
 	ClassPool pool;
 	Loader cl;

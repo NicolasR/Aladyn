@@ -33,14 +33,12 @@ public class Generics {
 		 * String methodName = Thread.currentThread().getStackTrace()[4].getMethodName();
 		 */
 		
-		System.out.println("[checkTypesParams]methodName: "+methodName);
 		Method methlist[] = classinfo.getMethods();
 		int num = 0;
 		while (!methodName.equals(methlist[num].getName())){
 			num++;
 		}
 
-		System.out.println("[checkTypesParams]methodfound: "+methlist[num].getName());
 		String[] typeParams = classinfo.getAnnotation(DynamicGenericTypeParameters.class).typeParams();
 			
 		Annotation[][] listannot = methlist[num].getParameterAnnotations();
@@ -88,14 +86,12 @@ public class Generics {
 	{
 		/** Obsolete :) **/
 		/*String methodName = Thread.currentThread().getStackTrace()[4].getMethodName();*/
-		System.out.println("[checkTypeReturn]methodName: "+methodName);
 		Method methlist[] = classinfo.getMethods();
 		int num = 0;
 		while (!methodName.equals(methlist[num].getName())){
 			num++;
 		}
 	
-		System.out.println("[checkTypeReturn]methodNameFound: "+methlist[num].getName());
 		String type;
 		String[] typeParams = classinfo.getAnnotation(DynamicGenericTypeParameters.class).typeParams();
 		if (!methlist[num].getGenericReturnType().toString().equals("void"))
@@ -139,7 +135,6 @@ public class Generics {
 
 		boolean found = false;
 		int num = 0;
-		System.out.println("[checkTypeField]FieldName: "+name);
 		for(num=0;num<fields.length;num++)
 		{
 			
@@ -153,7 +148,6 @@ public class Generics {
 		if (!found)
 			return;
 		
-		System.out.println("[checkTypeField]FieldNameFound: "+fields[num].getName());
 		if (fields[num].getAnnotations().length > 0)
 		{
 			String annotation = fields[num].getAnnotation(DynamicGenericType.class).value();
@@ -161,7 +155,6 @@ public class Generics {
 			{
 				if ( annotation.equals(typeParams[i]) )
 				{	
-					System.out.println(typeField.toString());
 					if (!(typeField.equals(types[i])))
 					{
 						try
