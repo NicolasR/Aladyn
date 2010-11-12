@@ -16,7 +16,7 @@ import fr.upmc.aladyn.reflection.Reflection;
 public class MyReflectionInjection extends Reflection {
 	/**
 	 * Injecte du code si la classe contient une annotation de type
-	 * @param pool ???
+	 * @param pool Le conteneur de la classe
 	 * @param classname le nom de la classe
 	 * @see fr.upmc.aladyn.reflection.Reflection#onLoad(javassist.ClassPool, java.lang.String)
 	 */

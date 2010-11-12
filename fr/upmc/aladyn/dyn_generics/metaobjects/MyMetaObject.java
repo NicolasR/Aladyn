@@ -59,7 +59,7 @@ public class MyMetaObject extends Metaobject {
 	 * Redéfinition de la méthode qui intercepte les appels de méthode
 	 * @param identifier le numéro identifiant la méthode
 	 * @param args les arguments passés à la méthode
-	 * @return la méthode ???
+	 * @return le résultat
 	 * @see fr.upmc.aladyn.reflection.Metaobject#trapMethodcall(int, java.lang.Object[])
 	 */
 	@Override

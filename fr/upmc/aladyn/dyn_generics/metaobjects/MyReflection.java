@@ -17,7 +17,7 @@ public class MyReflection extends Reflection {
 	
 	/** 
 	 * Rend une classe réflexive au au chargement
-	 * @param pool ClassPool de la classe ???
+	 * @param pool Conteneur de la classe
 	 * @param classname le nom de la classe
 	 * @see fr.upmc.aladyn.reflection.Reflection#onLoad(javassist.ClassPool, java.lang.String)
 	 */
@@ -26,12 +26,7 @@ public class MyReflection extends Reflection {
 			throws NotFoundException, CannotCompileException {
 		
 		CtClass ctClass = pool.get(classname);
-		//System.out.println(classname);
-	    /*for (CtMethod ctMethod:ctClass.getDeclaredMethods()) {
-	       // On �vite de chercher � modifier des m�thodes natives ;-)
-	       if (!Modifier.isNative(ctMethod.getModifiers())) {
-	       }
-	    }*/
+
 		try {
 			for (Object annot : ctClass.getAnnotations())
 			{

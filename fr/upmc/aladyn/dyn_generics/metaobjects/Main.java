@@ -17,7 +17,7 @@ public class Main {
 	 * Exécute l'interception
 	 * 
 	 * @param args arguments passés en paramètre
-	 * @throws Throwable ??? Thread?
+	 * @throws Throwable une exception
 	 */
 	public static void main(String[] args) throws Throwable {
 		

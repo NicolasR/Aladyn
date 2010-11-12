@@ -21,6 +21,7 @@ public class Generics {
 	 * 
 	 * @param classinfo la classe dont on souhaite vérifier les paramètres
 	 * @param types le tableau de type contenant les paramètres attendus
+	 * @param methodName le nom de la méthode
 	 * @param args les paramètres de la fonctions
 	 * @throws LatentTypeCheckStaticException exception qui indique qu'il y a un problème de type
 	 */
@@ -48,7 +49,15 @@ public class Generics {
 					{
 						if (!args[i].getClass().equals(types[i]))
 						{
-							throw new LatentTypeCheckStaticException("["+methodName+"(parameter "+(i+1)+")]bad type "+args[i].getClass().getSimpleName()+", waiting "+types[i].getSimpleName());
+							try
+							{
+								@SuppressWarnings("unused")
+								Object o = args[i].getClass().asSubclass(types[i]);
+							}
+							catch(Exception e)
+							{
+								throw new LatentTypeCheckStaticException("["+methodName+"(parameter "+(i+1)+")]bad type "+args[i].getClass().getSimpleName()+", waiting "+types[i].getSimpleName());
+							}
 						}
 					}
 				}
@@ -61,6 +70,7 @@ public class Generics {
 	 * 
 	 * @param classinfo la classe dont on souhaite vérifier les paramètres
 	 * @param types le tableau de type contenant les paramètres attendus
+	 * @param methodName le nom de la méthode
 	 * @param typereturn la classe correspondant au type de retour de la fonction
 	 * @throws LatentTypeCheckStaticException exception qui indique qu'il y a un problème de type
 	 */
@@ -85,7 +95,16 @@ public class Generics {
 				{
 					if (!(typereturn.getClass().equals(types[i])))
 					{
-						throw new LatentTypeCheckStaticException("["+methodName+"]bad returntype "+typereturn.getClass()+", waiting "+types[i].getSimpleName());
+						try
+						{
+							@SuppressWarnings("unused")
+							Object o = typereturn.getClass().asSubclass(types[i]);
+							
+						}
+						catch(Exception e)
+						{
+							throw new LatentTypeCheckStaticException("["+methodName+"]bad returntype "+typereturn.getClass()+", waiting "+types[i].getSimpleName());
+						}
 					}
 				}
 			}
