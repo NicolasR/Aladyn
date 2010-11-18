@@ -1,0 +1,125 @@
+<project name="ALADYN" default="compile" basedir=".">
+    <description>
+        The build file for ALADYN Project
+    </description>
+  <!-- set global properties for this build -->
+  <property name="src" location="src"/>
+  <property name="tests" location="tests"/>
+  <property name="build" location="build"/>
+  <property name="junit_path" location="lib/junit.jar" />
+  <property name="reflection_path" location="lib/reflection.jar" />
+  <property name="javassist_path" location="lib/javassist.jar" />
+	
+  <property name="nom1" value="2966627"/>
+  <property name="nom2" value="2961427"/>
+  <target name="init">
+    <!-- Create the time stamp -->
+    <tstamp/>
+    <!-- Create the build directory structure used by compile -->
+    <mkdir dir="${build}"/>
+  </target>
+
+  <target name="compile" depends="init"
+        description="compile the source " >
+    <!-- Compile the java code from ${src} into ${build} -->
+    <javac debug="true" srcdir="${src}:${tests}" excludes="" destdir="${build}">
+  		<classpath>
+  			<pathelement location="${junit_path}"/>
+  			<pathelement location="${reflection_path}"/>
+  			<pathelement location="${javassist_path}"/>
+  		</classpath>
+    </javac>
+  </target>
+
+  <target name="runInterception" depends="compile"
+          description="run Interception Main">
+    <echo>================ Run Transformation Main ================</echo>
+    <java classname="fr.upmc.aladyn.dyn_generics.metaobjects.Main" classpath="${build}" fork="true">
+    	<classpath>
+    		<pathelement location="${junit_path}"/>
+    	  	<pathelement location="${reflection_path}"/>
+    	  	<pathelement location="${javassist_path}"/>
+    	</classpath>
+    </java>
+  </target>
+	
+  <target name="runInjection" depends="compile"
+	      description="run Injection Main">
+	<echo>================ Run Injection Main ================</echo>
+	<java classname="fr.upmc.aladyn.dyn_generics.transform.Main"
+	          classpath="${build}" fork="true">
+		<classpath>
+		    <pathelement location="${junit_path}"/>
+		    <pathelement location="${reflection_path}"/>
+		    <pathelement location="${javassist_path}"/>
+		</classpath>
+	</java>
+  </target>
+
+  <target name="tests" depends="init,compile" description="Lancer les tests JUNIT">
+	<echo>================ Running JUNIT Tests... ================</echo>	    
+  	<junit printsummary="yes">
+		<classpath>
+			<pathelement location="${junit_path}"/>
+  			<pathelement location="${reflection_path}"/>
+  			<pathelement location="${javassist_path}"/>
+			<pathelement location="${build}" />
+		</classpath>  
+  		<formatter type="xml"/>
+		<batchtest fork="yes" todir="${tests}">
+			<fileset dir="${tests}" includes="fr/upmc/aladyn/dyn_generics/tests/TestSuite*.java"/>
+		</batchtest>
+	</junit>
+  </target>
+  
+  <target name="dist" depends="init,clean"
+        description="Generer la distribution" >
+    <!-- tout mettre dans l'archive -->
+    <tar basedir=".." destfile="../${nom1}-${nom2}.tar.gz" compression="gzip"
+    includes="ALADYN/**/*" excludes="**/.svn">
+    	<exclude name="ALADYN/src/.git/**"/>
+    	<exclude name="ALADYN/*.txt"/>
+    	<exclude name="ALADYN/*.pdf"/>
+    	<exclude name="ALADYN/*.gz"/>
+    	<exclude name="ALADYN/bin/**"/>
+    	<exclude name="ALADYN/src/README"/>
+    	<exclude name="ALADYN/*~"/>
+  	</tar>
+  </target>
+
+  <target name="clean"
+        description="clean up" >	
+	<echo>================ Removing temporary files... ================</echo>
+        <delete verbose="true"> <!-- Remove all *~ files -->
+	   <fileset dir="${basedir}" defaultexcludes="no">
+             <include name="**/*~"/>
+           </fileset>
+        </delete>
+        <echo>================ Removing build directory ================</echo>    
+	<delete dir="${build}"/>
+  	<delete dir="${build}"/>
+  </target>
+
+  <target name="doc" depends=""
+  	        description="Generer la javadoc" >
+    <javadoc
+    	sourcepath="${src}:${tests}"
+        destdir="doc"
+        author="true"
+        version="true"
+        use="true"
+	    windowtitle="Projet ALADYN"
+    	charset="utf8"
+    	docencoding="utf8"
+  		encoding="utf8"
+    	doctitle="Projet ALADYN"
+    	packagenames="*">
+    	  <classpath>
+    		<pathelement location="${junit_path}"/>
+    	  	<pathelement location="${reflection_path}"/>
+    	  	<pathelement location="${javassist_path}"/>
+    	  </classpath>
+    </javadoc>
+  </target>
+	
+</project>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite errors="0" failures="0" hostname="Nicolas-VAIO" name="fr.upmc.aladyn.dyn_generics.tests.TestSuiteInjection" tests="1" time="0.175" timestamp="2010-11-16T14:08:36">
+  <properties>
+    <property name="java.vendor" value="Sun Microsystems Inc." />
+    <property name="sun.java.launcher" value="SUN_STANDARD" />
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Server Compiler" />
+    <property name="os.name" value="Linux" />
+    <property name="sun.boot.class.path" value="/usr/lib/jvm/java-6-openjdk/jre/lib/resources.jar:/usr/lib/jvm/java-6-openjdk/jre/lib/rt.jar:/usr/lib/jvm/java-6-openjdk/jre/lib/sunrsasign.jar:/usr/lib/jvm/java-6-openjdk/jre/lib/jsse.jar:/usr/lib/jvm/java-6-openjdk/jre/lib/jce.jar:/usr/lib/jvm/java-6-openjdk/jre/lib/charsets.jar:/usr/lib/jvm/java-6-openjdk/jre/lib/netx.jar:/usr/lib/jvm/java-6-openjdk/jre/lib/plugin.jar:/usr/lib/jvm/java-6-openjdk/jre/lib/rhino.jar:/usr/lib/jvm/java-6-openjdk/jre/classes" />
+    <property name="TODAY" value="November 16 2010" />
+    <property name="sun.desktop" value="gnome" />
+    <property name="java.vm.specification.vendor" value="Sun Microsystems Inc." />
+    <property name="ant.home" value="/usr/share/java/apache-ant" />
+    <property name="java.runtime.version" value="1.6.0_20-b20" />
+    <property name="junit_path" value="/home/nicolas/Projets/ALADYN/lib/junit.jar" />
+    <property name="user.name" value="nicolas" />
+    <property name="user.language" value="fr" />
+    <property name="build" value="/home/nicolas/Projets/ALADYN/build" />
+    <property name="sun.boot.library.path" value="/usr/lib/jvm/java-6-openjdk/jre/lib/amd64" />
+    <property name="ant.project.default-target" value="compile" />
+    <property name="ant.project.name" value="ALADYN" />
+    <property name="DSTAMP" value="20101116" />
+    <property name="java.version" value="1.6.0_20" />
+    <property name="user.timezone" value="" />
+    <property name="sun.arch.data.model" value="64" />
+    <property name="java.endorsed.dirs" value="/usr/lib/jvm/java-6-openjdk/jre/lib/endorsed" />
+    <property name="sun.cpu.isalist" value="" />
+    <property name="ant.file.type.ALADYN" value="file" />
+    <property name="sun.jnu.encoding" value="UTF-8" />
+    <property name="file.encoding.pkg" value="sun.io" />
+    <property name="file.separator" value="/" />
+    <property name="java.specification.name" value="Java Platform API Specification" />
+    <property name="java.class.version" value="50.0" />
+    <property name="src" value="/home/nicolas/Projets/ALADYN/src" />
+    <property name="user.country" value="FR" />
+    <property name="java.home" value="/usr/lib/jvm/java-6-openjdk/jre" />
+    <property name="java.vm.info" value="mixed mode" />
+    <property name="ant.file" value="/home/nicolas/Projets/ALADYN/build.xml" />
+    <property name="os.version" value="2.6.35-ARCH" />
+    <property name="nom2" value="2961427" />
+    <property name="nom1" value="2966627" />
+    <property name="path.separator" value=":" />
+    <property name="java.vm.version" value="17.0-b16" />
+    <property name="ant.library.dir" value="/usr/share/java/apache-ant/lib" />
+    <property name="java.awt.printerjob" value="sun.print.PSPrinterJob" />
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle" />
+    <property name="user.home" value="/home/nicolas" />
+    <property name="java.specification.vendor" value="Sun Microsystems Inc." />
+    <property name="java.library.path" value="/usr/lib/jvm/java-6-openjdk/jre/lib/amd64/server:/usr/lib/jvm/java-6-openjdk/jre/lib/amd64:/usr/lib/jvm/java-6-openjdk/jre/../lib/amd64:/usr/java/packages/lib/amd64:/usr/lib64:/lib64:/lib:/usr/lib" />
+    <property name="java.vendor.url" value="http://java.sun.com/" />
+    <property name="java.vm.vendor" value="Sun Microsystems Inc." />
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment" />
+    <property name="java.class.path" value="/home/nicolas/Projets/ALADYN/lib/junit.jar:/home/nicolas/Projets/ALADYN/lib/reflection.jar:/home/nicolas/Projets/ALADYN/lib/javassist.jar:/home/nicolas/Projets/ALADYN/build:/usr/share/java/apache-ant/lib/junit.jar:/usr/share/java/apache-ant/lib/ant-launcher.jar:/usr/share/java/apache-ant/lib/ant.jar:/usr/share/java/apache-ant/lib/ant-junit.jar" />
+    <property name="ant.version" value="Apache Ant version 1.8.1 compiled on April 30 2010" />
+    <property name="TSTAMP" value="1508" />
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification" />
+    <property name="ant.file.type" value="file" />
+    <property name="java.vm.specification.version" value="1.0" />
+    <property name="sun.cpu.endian" value="little" />
+    <property name="sun.os.patch.level" value="unknown" />
+    <property name="tests" value="/home/nicolas/Projets/ALADYN/tests" />
+    <property name="java.io.tmpdir" value="/tmp" />
+    <property name="java.vendor.url.bug" value="http://java.sun.com/cgi-bin/bugreport.cgi" />
+    <property name="javassist_path" value="/home/nicolas/Projets/ALADYN/lib/javassist.jar" />
+    <property name="os.arch" value="amd64" />
+    <property name="java.awt.graphicsenv" value="sun.awt.X11GraphicsEnvironment" />
+    <property name="java.ext.dirs" value="/usr/lib/jvm/java-6-openjdk/jre/lib/ext:/usr/java/packages/lib/ext" />
+    <property name="user.dir" value="/home/nicolas/Projets/ALADYN" />
+    <property name="line.separator" value="
+" />
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM" />
+    <property name="basedir" value="/home/nicolas/Projets/ALADYN" />
+    <property name="reflection_path" value="/home/nicolas/Projets/ALADYN/lib/reflection.jar" />
+    <property name="ant.java.version" value="1.6" />
+    <property name="ant.core.lib" value="/usr/share/java/apache-ant/lib/ant.jar" />
+    <property name="ant.file.ALADYN" value="/home/nicolas/Projets/ALADYN/build.xml" />
+    <property name="file.encoding" value="UTF-8" />
+    <property name="java.specification.version" value="1.6" />
+    <property name="ant.project.invoked-targets" value="tests" />
+  </properties>
+  <testcase classname="fr.upmc.aladyn.dyn_generics.tests.TestSuiteInjection" name="testLoad" time="0.136" />
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
